@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Environment | DATAPlay</title>
+    <link href="bower_components/bootswatch/sandstone/bootstrap.min.css" rel="stylesheet">
+    <link href="bower_components/leaflet/dist/leaflet.css" rel="stylesheet" />
+    <link href="bower_components/sidebar-v2/css/leaflet-sidebar.min.css" rel="stylesheet" />
+    <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="bower_components/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet" />
+    <link href="bower_components/leaflet.locatecontrol/dist/L.Control.Locate.min.css" rel="stylesheet" />
+    <link href="css/site.css" rel="stylesheet">
+</head>
+<body>
+    <div id="mapContainer" class="container-fluid">
+        <div id="sidebar" class="sidebar collapsed">
+            <div class="sidebar-tabs">
+                <ul role="tablist">
+                    <li><a href="#home" role="tab"><i class="fa fa-info-circle"></i></a></li>
+                    <li><a href="#layers" role="tab"><i class="fa fa-map"></i></a></li>
+                </ul>
+                <ul role="tablist"></ul>
+            </div>
+            <div class="sidebar-content">
+                <div class="sidebar-pane" id="home">
+                    <h1 class="sidebar-header">
+                        DATAPlay Environment <span class="sidebar-close"><i class="fa fa-caret-right"></i></span>
+                    </h1>
+                    <div id="sidebar-maincontent">
+                    </div>
+                </div>
+                <div class="sidebar-pane" id="layers">
+                    <h1 class="sidebar-header">
+                        Environment things <span class="sidebar-close"><i class="fa fa-caret-right"></i></span>
+                    </h1>
+                    <div id="sidebar-maincontent">
+                        <div id="divCategories"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="map"></div>
+    </div>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/leaflet/dist/leaflet.js"></script>
+    <script src="bower_components/sidebar-v2/js/leaflet-sidebar.min.js"></script>
+    <script src="bower_components/leaflet.locatecontrol/dist/L.Control.Locate.min.js"></script>
+    <script src="bower_components/leaflet-geometry/dist/leaflet.geometryutil.js"></script>
+    <script src="js/plymouth.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/config.js"></script>
+</body>
+</html>

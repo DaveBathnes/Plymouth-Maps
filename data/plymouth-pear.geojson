@@ -1,0 +1,15 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::27700" } },
+                                                                                
+"features": [
+{ "type": "Feature", "properties": { "LOCATION": "Morlaix Drive - Ambulance Station", "NOTES": null }, "geometry": { "type": "MultiPoint", "coordinates": [ [ 249585.994, 59518.031 ] ] } },
+{ "type": "Feature", "properties": { "LOCATION": "Estover Road", "NOTES": null }, "geometry": { "type": "MultiPoint", "coordinates": [ [ 251914.45, 59688.017 ] ] } },
+{ "type": "Feature", "properties": { "LOCATION": "Plymbridge Road", "NOTES": null }, "geometry": { "type": "MultiPoint", "coordinates": [ [ 251622.084, 59532.574 ] ] } },
+{ "type": "Feature", "properties": { "LOCATION": "Estover Road", "NOTES": null }, "geometry": { "type": "MultiPoint", "coordinates": [ [ 251548.332, 59849.083 ] ] } },
+{ "type": "Feature", "properties": { "LOCATION": "Blunts Lane", "NOTES": null }, "geometry": { "type": "MultiPoint", "coordinates": [ [ 250470.392, 59162.463 ] ] } },
+{ "type": "Feature", "properties": { "LOCATION": "Estover Industrial SSSI", "NOTES": null }, "geometry": { "type": "MultiPoint", "coordinates": [ [ 251565.085, 59774.66 ], [ 251509.697, 59892.945 ] ] } },
+{ "type": "Feature", "properties": { "LOCATION": "Plymbridge Lane SSSI", "NOTES": null }, "geometry": { "type": "MultiPoint", "coordinates": [ [ 249893.132, 59895.762 ], [ 249926.928, 59860.088 ], [ 249908.153, 59880.741 ] ] } },
+{ "type": "Feature", "properties": { "LOCATION": "Forder Valley Local Nature Reserve", "NOTES": null }, "geometry": { "type": "MultiPoint", "coordinates": [ [ 251012.969, 57665.242 ] ] } }
+]
+}
