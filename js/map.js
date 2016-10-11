@@ -1,10 +1,14 @@
 ﻿$(function () {
     jQuery.fn.reverse = [].reverse;
 
+
+    var currentLayers = {};
     /////////////////////////////////////////////////
     // Map - Initialise the map, set center, zoom, etc.
     /////////////////////////////////////////////////
     var map = L.map('map').setView([52.55, -2.72], 7);
+    proj4.defs("EPSG:27700", config.bngcrs);
+    proj4.defs('OGC:CRS84', proj4.defs('EPSG:4326'));
     L.tileLayer(config.mapTilesLight, { attribution: config.mapAttribution }).addTo(map);
     var sidebar = L.control.sidebar('sidebar', { position: 'right' }).addTo(map);
     map.addControl(sidebar);
@@ -45,10 +49,25 @@
     ////////////////////////////////////////////////////////
     var addLayerToMap = function (layerName) {
         var layer = {};
-        $.each(config.layers, function (k, i) {
-            $.each(i, function () {
-                if (this.name == layerName) layer = this;
-            });
+        plymouth.getLayerByName(layerName, function (layer) {
+            if (layer.type === 'geoJson') {
+                var onEachFeature = function (feature, layer) {
+                    layer.on('click', function (e) {
+                        clickAuth(e, feature, layer);
+                    });
+                };
+                // Load in the geoJson data
+                var newLayer = L.Proj.geoJson(layer.data);
+                //var newLayer = new L.geoJson(null, {
+                //    onEachFeature: onEachFeature
+                //});
+                currentLayers[layerName] = newLayer;
+                currentLayers[layerName].addTo(map);
+                //$(layer.data.features).each(function (key, data) {
+                //    currentLayers[layerName].addData(data);
+                //});
+                map.flyToBounds(currentLayers[layerName].getBounds());
+            }
         });
     };
 
@@ -56,8 +75,8 @@
     // Function: removeLayerFromMap
     ////////////////////////////////////////////////////////
     var removeLayerFromMap = function (layerName) {
-        map.removeLayer(layers[layerName]);
-        delete layers[layerName];
+        map.removeLayer(currentLayers[layerName]);
+        delete currentLayers[layerName];
     };
 
     /////////////////////////////////////////////////////////////
@@ -68,7 +87,7 @@
         $.each(data, function (i, x) {
             $('#divCategories').append('<h4>' + i + '</h4>');
             $.each(x, function (y, l) {
-                $('#divCategories').append('<div class="checkbox checkbox-success"><input id="chb' + l.name + '" data-layer="' + l.name + '" class="checkbox-layer styled" type="checkbox" /> <label for="chb' + l.name + '">' + l.name + '</label></div>')
+                $('#divCategories').append('<div class="checkbox checkbox-success"><input id="chb' + l.name + '" data-layer="' + l.name + '" class="checkbox-layer styled" type="checkbox" /> <label for="chb' + l.name + '">' + l.name + '</label></div>');
             });
         });
 
