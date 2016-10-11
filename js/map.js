@@ -1,7 +1,6 @@
 ﻿$(function () {
     jQuery.fn.reverse = [].reverse;
 
-
     var currentLayers = {};
     /////////////////////////////////////////////////
     // Map - Initialise the map, set center, zoom, etc.
@@ -56,16 +55,9 @@
                         clickAuth(e, feature, layer);
                     });
                 };
-                // Load in the geoJson data
                 var newLayer = L.Proj.geoJson(layer.data);
-                //var newLayer = new L.geoJson(null, {
-                //    onEachFeature: onEachFeature
-                //});
                 currentLayers[layerName] = newLayer;
                 currentLayers[layerName].addTo(map);
-                //$(layer.data.features).each(function (key, data) {
-                //    currentLayers[layerName].addData(data);
-                //});
                 map.flyToBounds(currentLayers[layerName].getBounds());
             }
         });

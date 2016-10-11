@@ -18,8 +18,7 @@
                 url: layer.url,
                 success: function (data) {
                     layer.data = data;
-                    callback(layer);
-                    return;
+                    callback(layer); return;
                 }
             });
         }
