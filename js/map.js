@@ -12,6 +12,7 @@
     var sidebar = L.control.sidebar('sidebar', { position: 'right' }).addTo(map);
     map.addControl(sidebar);
     L.control.locate().addTo(map);
+    var pruneCluster = new PruneClusterForLeaflet();
 
     /////////////////////////////////////////////////////////
     // Helper Function: numFormat
@@ -24,21 +25,18 @@
     };
 
     /////////////////////////////////////////////////////////
-    // Function: clickPoint
-    /////////////////////////////////////////////////////////
-    var clickPoint = function (point) {
-        sidebar.close();
-        var displayPointInfo = function () { sidebar.open(); };
-        map.on('moveend', displayPointInfo);
-        map.flyTo(L.latLng(lib.lat, lib.lng), 13);
-    };
-
-    /////////////////////////////////////////////////////////
     // Function: clickLayer
     /////////////////////////////////////////////////////////
     var clickLayer = function (e, feature, layer) {
         sidebar.close();
-        var displayLayerInfo = function () { sidebar.open(); };
+        var props = layer.feature.properties;
+        var displayLayerInfo = function (e) {
+            $('#layers .sidebar-maincontent .list-group').empty();
+            sidebar.open('layers');
+            $.each(props, function (i, x) {
+                if (x != null) $('#layers .sidebar-maincontent .list-group').append('<div class="list-group-item"><p class="list-group-item-text"><strong>' + i.replace(/_/g, ' ').toLowerCase() + '</strong>.  ' + x + '</p></div>');
+            });
+        };
         map.on('moveend', displayLayerInfo);
         map.flyToBounds(layer.getBounds(), { paddingTopLeft: L.point(-350, 0) });
     };
@@ -50,12 +48,12 @@
         var layer = {};
         plymouth.getLayerByName(layerName, function (layer) {
             if (layer.type === 'geoJson') {
-                var onEachFeature = function (feature, layer) {
-                    layer.on('click', function (e) {
-                        clickAuth(e, feature, layer);
-                    });
+                var onEachFeature = function (feature, layer) { layer.on('click', function (e) { clickLayer(e, feature, layer); }); };
+                var pointToLayer = function (feature, latlng) {
+                    var options = { icon: 'leaf', borderColor: layer.colour, textColor: layer.colour, backgroundColor: 'transparent' };
+                    return L.marker(latlng, { icon: L.BeautifyIcon.icon(options) });
                 };
-                var newLayer = L.Proj.geoJson(layer.data);
+                var newLayer = L.Proj.geoJson(layer.data, { onEachFeature: onEachFeature, pointToLayer: pointToLayer });
                 currentLayers[layerName] = newLayer;
                 currentLayers[layerName].addTo(map);
                 map.flyToBounds(currentLayers[layerName].getBounds());
@@ -77,18 +75,22 @@
     plymouth.getDataSetsByCategory(function (data) {
         // Some will be set to display by default - get those.
         $.each(data, function (i, x) {
-            $('#divCategories').append('<h4>' + i + '</h4>');
+            $('#divCategories').append('<h5 class="text-muted">' + i + '</h5>');
+            $('#divCategories').append('<ul id="layerList' + i + '" class="nav nav-pills nav-stacked"></ul>');
             $.each(x, function (y, l) {
-                $('#divCategories').append('<div class="checkbox checkbox-success"><input id="chb' + l.name + '" data-layer="' + l.name + '" class="checkbox-layer styled" type="checkbox" /> <label for="chb' + l.name + '">' + l.name + '</label></div>');
+                $('#divCategories #layerList' + i).append('<li class="li-layer" data-layer="' + l.name + '"><a href="#">' + l.name + '</a></li>');
             });
         });
 
         // Attach click event to the checkboxes
-        $('.checkbox-layer').click(function (evt) {
-            if (evt.target.checked) {
-                addLayerToMap(evt.target.dataset['layer']);
+        $('.li-layer a').click(function (evt) {
+            evt.preventDefault();
+            if ($(evt.target.parentNode).hasClass('active')) {
+                removeLayerFromMap(evt.target.parentNode.dataset['layer']);
+                $(evt.target.parentNode).removeClass('active');
             } else {
-                removeLayerFromMap(evt.target.dataset['layer']);
+                $(evt.target.parentNode).addClass('active');
+                addLayerToMap(evt.target.parentNode.dataset['layer']);
             }
         });
     });

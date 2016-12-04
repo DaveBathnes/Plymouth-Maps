@@ -21,10 +21,10 @@
     "sidebar-v2": "^0.3.0",
     "leaflet.locatecontrol": "^0.55.0",
     "font-awesome": "^4.6.3",
-    "awesome-bootstrap-checkbox": "^0.3.7",
     "proj4": "^2.3.15",
     "Proj4Leaflet": "proj4leaflet#^0.7.2",
-    "leaflet-geometry": "^0.4.0"
+    "leaflet-geometry": "^0.4.0",
+    "leaflet.beautifymarker": "npm:leaflet.beautifymarker#1.1.1"
   },
   "resolutions": {
     "leaflet": "^1.0.1",

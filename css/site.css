@@ -5,6 +5,26 @@
 
 .sidebar-header, .sidebar-tabs > li.active, .sidebar-tabs > ul > li.active {
     background-color: #93C54B;
+    font-weight: 700;
+}
+
+.sidebar-maincontent {
+    padding-right: 5px;
+    padding-top: 5px;
+}
+
+.sidebar-layer-header {
+    font-weight: 500;
+    text-transform: lowercase;
+}
+
+.list-group-item-heading {
+    text-transform: lowercase;
+    text-align: right;
+}
+
+.list-group-item p {
+
 }
 
 .sidebar-content {
